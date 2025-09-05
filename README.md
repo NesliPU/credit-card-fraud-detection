@@ -21,7 +21,7 @@ That huge imbalance makes the problem interesting: the model has to learn how to
       - ROC Curves
   ![Alt text](images/roc_curve.png)
       - Feature Importance
-  ![Alt text](images/importance.png)
+  ![Alt text](images/feature_importance.png)
 
 - What I learned:
   - Accuracy is useless on imbalanced data. Precision, recall, and AUC tell the real story.
