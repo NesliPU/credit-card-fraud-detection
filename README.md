@@ -75,3 +75,34 @@ Plots saved in `images/`:
 1. Run the “Fine-tuning RF (GridSearchCV)” cell in the notebook.  
 2. The cell prints the best hyperparameters and test metrics.  
 3. It also writes the plots above to `images/` so they render in this README.
+
+### Cost-sensitive Thresholding 
+A false-negative (FN) is costly, and a false-positive (FP) is not preferable in the custormer-front with too many false fraud alerts.
+I assigned cost of a FN=100 and FP=5, then let the model run between the 0.0-1.0 threshold range to find the optimal value. 
+
+### Results
+- **Best threshold:** 0.47  
+- **Minimum cost:** 1,545  
+- **Confusion matrix at this threshold:** [[56815 49] [ 13 85]]
+This means:
+- 85 frauds were correctly detected,  
+- only 13 frauds were missed,  
+- 49 legitimate transactions were falsely flagged,  
+- 56,815 legitimate transactions were correctly passed through.
+- 
+### Cost vs. Threshold Plot
+The plot below shows how total business cost changes with the decision threshold, with the optimal point marked in red.
+
+![Cost vs Threshold](images/cost_vs_threshold.png)
+
+### Why this matters
+Instead of using the default 0.5 cutoff, cost-sensitive tuning shows how to choose a threshold that **minimizes financial loss** under realistic assumptions.  
+This illustrates that the model is not only accurate but also *aligned with business objectives*.
+
+### Business Impact
+By lowering the decision threshold from 0.50 to 0.47, the tuned Random Forest reduced the expected fraud cost from over 2,000 to 1,545 — a **~25% cost reduction** under realistic assumptions (missed fraud = 100, false alarm = 5).
+
+### Executive Summary
+The tuned Random Forest is not just a strong model statistically (ROC AUC ~0.98, PR-AUC ~0.80), but also operationally valuable.  
+By explicitly weighing the higher cost of missed fraud against the smaller cost of false alarms, the model strikes a balance that would save money in production while catching 87% of fraud cases.  
+This demonstrates how data science decisions translate into business outcomes.
